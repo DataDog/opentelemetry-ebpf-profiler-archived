@@ -34,6 +34,7 @@ import (
 
 	"github.com/open-telemetry/opentelemetry-ebpf-profiler/libpf"
 	"github.com/open-telemetry/opentelemetry-ebpf-profiler/libpf/xsync"
+	"github.com/open-telemetry/opentelemetry-ebpf-profiler/process"
 	"github.com/open-telemetry/opentelemetry-ebpf-profiler/util"
 )
 
@@ -207,7 +208,7 @@ func (r *OTLPReporter) ReportFallbackSymbol(frameID libpf.FrameID, symbol string
 // ExecutableMetadata accepts a fileID with the corresponding filename
 // and caches this information.
 func (r *OTLPReporter) ExecutableMetadata(fileID libpf.FileID, fileName,
-	buildID string, _ libpf.InterpreterType, _ ExecutableOpener) {
+	buildID string, _ libpf.InterpreterType, _ process.FileOpener) {
 	r.executables.Add(fileID, execInfo{
 		fileName: fileName,
 		buildID:  buildID,
