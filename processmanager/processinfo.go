@@ -301,6 +301,11 @@ func (pm *ProcessManager) getELFInfo(pr process.Process, mapping *process.Mappin
 	}
 
 	buildID, _ := ef.GetBuildID()
+	if buildID == "" {
+		// If the buildID is empty, try to get Go buildID.
+		buildID, _ = ef.GetGoBuildID()
+	}
+
 	mapping2 := *mapping // copy to avoid races if callee saves the closure
 	open := func() (process.ReadAtCloser, error) {
 		return pr.OpenMappingFile(&mapping2)
